@@ -124,7 +124,7 @@ footer{display:flex;justify-content:space-between;margin-top:14vh;padding-top:24
  .about__grid{grid-template-columns:1fr}.about__photo{width:70vw}
  .contact__grid{grid-template-columns:1fr;gap:6vh}
 }
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01s !important;transition-duration:.01s !important}}
+/* (aturan reduced-motion dihapus: di Android hemat baterai / 'Hapus animasi' membuat SEMUA animasi mati) */
 
 /* ===== tambahan ===== */
 .contact__title,.ct span{overflow-wrap:anywhere}
@@ -394,4 +394,15 @@ footer{flex-wrap:wrap;gap:10px 24px}
   .jr__node:not(.is-on):hover .jr__thumb{filter:grayscale(1);opacity:.4}
   .jr__btn:hover{background:transparent;color:#eee;border-color:#555}
   .jr__btn:active{background:#eee;color:var(--dark);border-color:#eee}
+}
+
+
+/* ---- Ringankan render di HP supaya animasi mulus (tidak patah-patah) ---- */
+@media(max-width:800px){
+  .topnav{mix-blend-mode:normal;color:var(--ink)}      /* blend-mode di elemen fixed sangat berat di HP */
+  .sprog{mix-blend-mode:normal;background:var(--ink)}
+  .hero__photo{filter:none}                             /* drop-shadow pada foto besar = berat saat animasi */
+  .lightbox{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .strip.focus .card:not(.on){filter:none}
+  .loader,.curtain i,.hero__photo,.hero__name span,.jr__stage,.about__photo{will-change:transform,opacity}
 }
